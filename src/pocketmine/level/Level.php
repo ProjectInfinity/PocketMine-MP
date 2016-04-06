@@ -33,7 +33,6 @@ use pocketmine\block\BrownMushroom;
 use pocketmine\block\Cactus;
 use pocketmine\block\Carrot;
 use pocketmine\block\Farmland;
-use pocketmine\block\Fire;
 use pocketmine\block\Grass;
 use pocketmine\block\Ice;
 use pocketmine\block\Leaves;
@@ -249,7 +248,7 @@ class Level implements ChunkManager, Metadatable{
 		Block::CARROT_BLOCK => Carrot::class,
 		Block::POTATO_BLOCK => Potato::class,
 		Block::LEAVES2 => Leaves2::class,
-		Block::FIRE => Fire::class,
+
 		Block::BEETROOT_BLOCK => Beetroot::class,
 	];
 
@@ -857,7 +856,7 @@ class Level implements ChunkManager, Metadatable{
 
 		$chunksPerLoader = min(200, max(1, (int) ((($this->chunksPerTick - count($this->loaders)) / count($this->loaders)) + 0.5)));
 		$randRange = 3 + $chunksPerLoader / 30;
-		$randRange = (int) ($randRange > $this->chunkTickRadius ? $this->chunkTickRadius : $randRange);
+		$randRange = $randRange > $this->chunkTickRadius ? $this->chunkTickRadius : $randRange;
 
 		foreach($this->loaders as $loader){
 			$chunkX = $loader->getX() >> 4;
@@ -1468,7 +1467,7 @@ class Level implements ChunkManager, Metadatable{
 	 * @param Player  $player
 	 * @param bool    $createParticles
 	 *
-	 * @return bool
+	 * @return boole
 	 */
 	public function useBreakOn(Vector3 $vector, Item &$item = null, Player $player = null, bool $createParticles = false) : bool{
 		$target = $this->getBlock($vector);
